@@ -1,0 +1,22 @@
+{% extends 'logmodules/base.html' %}
+
+{% block content %}
+
+
+{% if next %}
+{% if user.is_authenticated %}
+no access to this page
+{% else %}
+please login
+{% endif %}
+{% endif %}
+
+
+      <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Login</button>
+	<input type="hidden" type="next" value="{{ next }}" />
+    </form>
+{% endblock %}

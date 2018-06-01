@@ -1,0 +1,25 @@
+{% extends 'logmodules/base.html' %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+  User: {{ user.get_username }}
+   <a href="{% url 'logmodules:logout' %}">logout</a>
+{% else %}
+<a href="{% url 'logmodules:login' %}?next{{ request.path }}">login</a>
+{% endif %}
+
+
+  {% for date, logs in logs_map.items %}
+  <h3>
+	  {{ date }}
+  <h3>
+    {% for log in logs %}
+        <div class="Daily Log">
+		<h1><a href="{% url 'logmodules:detail' pk=log.pk %}">{{ log.event_time }} {{ log.line }}</a></h1>
+        </div>
+      {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+
